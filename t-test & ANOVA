@@ -1,0 +1,175 @@
+# box plot 의 outlier 는 상자크기(IQR)의 1.5배 바깥
+# 1. one-sample mean test : z-test   p.18   ####
+xx=c(35,32,33,28,29,30,31,29,28,30)
+zz=(mean(xx)-30)*sqrt(length(xx))/5 #standardzation
+pp=1-pnorm(zz)
+
+plot(density(xx),xlim=c(15,45),main="Density Plot",xlab = "")
+lines(density(rnorm(100000,mean=30,sd = 5)),col=2,lty=2,lwd=2)
+legend("topright",legend = c("dnorminal-distribution","sample"),lty = c(2,1),col = c(2,1))
+
+
+#2. one-sample mean test(dont know Var(x)) : t-test  p.19   ####
+# 표본평균과 모평균간 차이여부
+xx=c(35,32,33,28,29,30,31,29,28,30)
+t.test(xx,y=NULL,mu=30)
+
+
+#3. two iid~ sample mean test: t-test  p.21   ####
+# 전후의 평균차이 여부
+xx=c(88,73,75,89,52,57,58,36,38,78,37,56,58,37,55)
+yy=c(46,67,59,75,88,76,57,66,72,95,54,67,33)
+# 두 집단의 분산이 동직적이면  var.equal="T"로, 이질적이면 var.equal="F"로 한다
+# 동질성 검정은 bartlett.test(xx,yy)로 한다.
+t.test(xx,yy)
+ 
+
+#4. two paird sample mean test: t-test  p.23 ####
+#정책 전 선호도와 정책 후 선호도 차이 비교
+#차이가 있다/없다
+aa=c(10,13,14,17,18,20,21,23,25,26,28,25,30,32,33)
+bb=c(15,18,17,19,20,23,25,27,30,33,35,34,36,40,40)
+t.test(aa,bb,paired = T)
+#선호도가 5점 높아졌다/아니다 
+aaa=aa+5
+t.test(aaa,bb,paired = T)
+
+
+#5. one smaple var-test: F-test  p.25 ####
+# 분산이 var(X)가 맞는지 확인 F-test=(X1/d.f1)/(X2/d.f2)
+# ndf는 분자의 df,ddf는 분모의 df
+xx=c(35,32,33,28,29,30,31,29,28,30)
+yy=rnorm(10,mean = 30,sd=5)
+var.test(xx,yy)
+
+
+#6. two iid~ sample var-test: F-test  p.26  ####
+# 독립표본 분산비교
+xx=c(88,73,75,89,52,57,58,36,38,78,37,56,58,37,55)
+yy=c(46,67,59,75,88,76,57,66,72,95,54,67,33)
+var.test(xx,yy)
+
+#7. two paired sample var-test: F-test  p.27 ####
+#전후 분산비교
+aa=c(10,13,14,17,18,20,21,23,25,26,28,25,30,32,33)
+bb=c(15,18,17,19,20,23,25,27,30,33,35,34,36,40,40)
+var.test(aa,bb,paired=T)
+plot(density(aa),xlab="",ylab="밀도",main="Density Plot",xlim=c(0,55))
+lines(density(bb),col="red",lwd=2,lty=2)
+legend("topleft",legend = c("aa","bb"),col = c(1,2),lty=c(1,2),lwd = c(1,2))
+
+#8. k iid sample 비모수 var-test: Fligner Test p.33 ####
+dd=data.frame(InsectSprays)
+fligner.test(count~spray,data = dd)
+plot(count~spray,data=dd,main="box plot",xlab="sample",ylab = "grade",col="grey88")
+grid()
+d1=density(dd$count[dd$spray=="A"])
+d2=density(dd$count[dd$spray=="B"])
+d3=density(dd$count[dd$spray=="C"])
+d4=density(dd$count[dd$spray=="D"])
+d5=density(dd$count[dd$spray=="E"])
+d6=density(dd$count[dd$spray=="F"])
+plot(d1,xlab = "sample",ylab = "density",main="density plot",col=4,lty=4,xlim=c(0,30),ylim=c(0,0.4),lwd=2)
+lines(d2,col=2,lty=2)
+lines(d3,col=3,lty=3)
+lines(d4,col=1,lty=1)
+lines(d5,col=5,lty=5)
+lines(d6,col=6,lty=6)
+grid()
+
+#9. k iid sample var-test: Battlett Test  p.35  #### 
+# 세그룹의 분산 비교
+xx=c(88,73,75,89,52,57,58,36,38,78,37,56,58,37,55)
+yy=c(46,67,59,75,88,76,57,66,72,95,54,67,33)
+zz=c(33,55,67,89,54,74,61,68,91,88,24)
+bartlett.test(list(xx,yy,zz))
+
+#------------------- ANOvA --------------------------------------
+#10. one way ANOVA #### p.45 (등분산가정/same var)
+#Anova test ~ F= MSA/MSE =[SSA/(k-1)] / [SSE/k(n-1)]
+#df,n=3 실험횟수,factor=1 요인수,k=10 같은 반복수 
+yy=c(30,27,25,21,20,28,30,34,33,31
+     ,21,16,18,19,22,20,21,25,27,28
+     ,22,26,18,25,22,14,17,20,23,29
+     )
+gg=gl(3,10,30,labels=c("공정1","공정2","공정3"))
+anova(lm(yy~gg))
+#(등분산 가정x /not same var)
+oneway.test(yy~gg)
+
+#11. repeated t-test  p.48 ####
+#(등분산가정/same var) & 1-2,2-3,3-1 contrast
+yy=c(30,27,25,21,20,28,30,34,33,31
+     ,21,16,18,19,22,20,21,25,27,28
+     ,22,26,18,25,22,14,17,20,23,29
+)
+gg=gl(3,10,30,labels=c("공정1","공정2","공정3"))
+
+TukeyHSD(aov(yy~gg))
+plot(TukeyHSD(aov(yy~gg)))
+plot(density(yy[gg=="공정1"]),xlab = "",ylim = c(0,0.1),main="Density")
+lines(density(yy[gg=="공정2"]),col=2,lty=2,lwd=2)
+lines(density(yy[gg=="공정3"]),col=3,lty=3,lwd=3)
+legend("bottomright",legend = c("공정1","공정2","공정3"),col=(1:3),lty=c(1:3),lwd = c(1:3))
+ 
+#12. one way ANOVA 다른반복수  p.49  #### 
+#df,n=3 실험횟수,factor=1 요인수,k는 다른 반복수 
+#반복수가 다른 경우,결측값을 넣어 k를 통일한다
+yy=c(88,73,75,89,52,57,58,36,38,78,37,56,68,37,55,
+     46,67,59,75,88,76,57,66,72,95,54,67,33,NA,NA,
+     33,55,67,89,54,74,61,68,91,88,24,NA,NA,NA,NA)
+gg2=gl(3,15,45,labels = c("남학생","여학생","외국인"))
+anova(lm(yy~gg2))
+
+boxplot(yy~gg2,main="Sample box plot \n for One way ANOVA")
+legend(0.8,30,mean(yy[1:15]),cex = 0.6)
+legend(1.5,30,mean(yy[16:30],na.rm = T),cex = 0.6)
+legend(2.8,30,mean(yy[31:45],na.rm = T),cex = 0.6)
+plot(TukeyHSD(aov(yy~gg2)))
+
+#13. two way ANOVA 뱐복없음   p.51 repeated  #### 
+# factor X level=3, factor y level=5
+aa=c(120,150,135,167,187,
+     134,167,140,176,170,
+     141,172,156,171,181)
+xx=gl(3,5,labels=c("x1","x2","x3")) #level x
+yy=gl(5,1,15,labels = c("y1","y2","y3","y4","y5")) #level y
+dd=data.frame(xx,yy,aa) #check box
+anova(lm(aa~yy+xx))
+#box plot 
+boxplot(aa~yy,main="Sample Box Plot \n for 2 way anova")
+library(sqldf)
+legend(0.7,121,sqldf("select avg(aa) from dd  where yy=='y1' "),cex = 0.6)
+legend(4.7,121,mean(c(aa[5],aa[10],aa[15])),cex=0.6)
+
+#14. two way ANOVA 반복있음  p.52 unrepeated  #### 
+# factor X level=2, x repeat =2, factor y level=5
+bb=c(120,150,135,167,187,
+     125,140,145,170,185,
+     184,167,140,176,170,
+     131,165,145,175,180)
+xx=gl(2,10,20,labels = c("x1","x2")) # level x
+yy=gl(5,1,20,labels=c("y1","y2","y3","y4","y5")) # level y  , xx에 k*n을 맞춤
+dd=data.frame(xx,yy,bb)
+anova(lm(bb~yy+xx))
+
+#교호작용(interacion)이 있을 경우 - anova(lm(bb~yy*xx))
+anova(lm(bb~yy*xx))
+ 
+#15. N way ANOVA 반복없음  p.58 unrepeated  ####  
+# factor x level 2, factor y level 2, factor z level 3
+# make hypothesis, check significant level, choose test statistic
+cc=c(35,36,47,57,68,65,25,61,79,58,28,24,34,54,69,55)
+xx=gl(2,8,16,labels = c("man","woman"))
+yy=gl(2,4,16,labels = c("rich","poor"))
+zz=gl(3,1,16,labels = c("1grade","2grade","3grade"))
+anova(lm(cc~xx+yy+zz))
+boxplot(cc~yy+zz,main="sample box plot \n for n way anova")
+
+#16. one way Multiple ANOVA  다른실험이 2번(반복과 다름)  p.61 ####
+# make hypothesis, check significant level, choose test statistic
+d1=c(35,36,47,57,68,65,25,61,79,58,28,24,34,54,69) #수학성적
+d2=c(47,45,55,26,56,43,46,62,56,66,84,57,75,47,63) # 과학성적
+zz=gl(3,1,15,labels = c("1grade","2grade","3grade"))
+ma=manova(cbind(d1,d2)~zz)
+summary(ma)
