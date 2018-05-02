@@ -5,3 +5,4 @@ You can find  examples of various statistical code in R about distribution, baye
 
 - [t-test,ANOVA](https://github.com/kim-taehee/Advanced-statistic-code-in-R/blob/master/t-test%20%26%20ANOVA)
 - [Correlation](https://github.com/kim-taehee/Advanced-statistic-code-in-R/blob/master/cor.R)
+- [Linear Regression](https://github.com/kim-taehee/Advanced-statistic-code-in-R/blob/master/LinearRegression.R)
