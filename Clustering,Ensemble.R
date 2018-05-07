@@ -127,7 +127,8 @@ plot(ss,type = "codes",main = "Plot by SOM")
 plot(ss,type = "mapping",label=y,col=y,main = "Classify by SOM")
 
 #---------------------------------------------------------------------------------
-# 앙상블 기법은 최신의 것이 kaggle에 많다. 책은 구
+# 앙상블 기법은 최신의 것이 kaggle에 많다. 책은 구형
+# GBM과 Adaboost, XGboost 등이 
 
 # 8. bagging  p.380 ####
 x1=c(50,48,35,31,45, 48,38,41,33,42, 22,11,25,25,23,
