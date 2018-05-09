@@ -161,3 +161,19 @@ dd=data.frame(x1,x2,y)
 rf=randomForest(y~x1+x2,nodesize=2,mtry=1,ntree=100,importance=T,
                 localImp=T,proximity=T,oob.prox=T) # mtry 분기적용 변수의 수,ntree tree수, nodesize 노드크기
 plot(rf,main = "error rate")
+
+# 11. gbm
+library(gbm)
+data(iris)
+sample = iris[sample(nrow(iris)),]
+train = sample[1:105,]
+test = sample[106:150,]
+model = gbm(Species~.,data=train,distribution="multinomial",n.trees=5000,interaction.depth=4)
+summary(model)
+# find the most high prob. class
+pred =predict(model,newdata=test[,-5],n.trees=5000)
+pred[1:5,]
+p.pred<-apply(pred,1,which,max)
+p.pred
+
+     
