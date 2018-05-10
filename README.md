@@ -9,4 +9,5 @@ You can find  examples of various statistical code in R about distribution, baye
 - [Non Linear Regression](https://github.com/kim-taehee/Advanced-statistic-code-in-R/blob/master/Non_LinearRegression.R)
 - [PCA,LDA,FA](https://github.com/kim-taehee/Advanced-statistic-code-in-R/blob/master/PCA%2CDiscriminant_Analysis%2CFactor.R)
 - [Clustering,Ensemble](https://github.com/kim-taehee/Advanced-statistic-code-in-R/blob/master/Clustering,Ensemble.R)
-- [distributions](https://github.com/kim-taehee/Advanced-statistic-code-in-R/blob/master/distribution.R)
+- [Distributions](https://github.com/kim-taehee/Advanced-statistic-code-in-R/blob/master/distribution.R)
+- [Tree,Correspondence,Assocatiaon](https://github.com/kim-taehee/Advanced-statistic-code-in-R/blob/master/Tree%2CCorrespondence.%2CAssociation.R)
