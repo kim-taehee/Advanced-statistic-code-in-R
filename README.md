@@ -11,3 +11,4 @@ You can find  examples of various statistical code in R about distribution, baye
 - [Clustering,Ensemble](https://github.com/kim-taehee/Advanced-statistic-code-in-R/blob/master/Clustering,Ensemble.R)
 - [Distributions](https://github.com/kim-taehee/Advanced-statistic-code-in-R/blob/master/distribution.R)
 - [Tree,Correspondence,Assocatiaon](https://github.com/kim-taehee/Advanced-statistic-code-in-R/blob/master/Tree%2CCorrespondence.%2CAssociation.R)
+ -[Survival(생존분석),SEM(구조방정식)](https://github.com/kim-taehee/Advanced-statistic-code-in-R/blob/master/Survive%2CSEM.R)
