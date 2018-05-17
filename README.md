@@ -13,3 +13,4 @@ You can find  examples of various statistical code in R about distribution, baye
 - [Tree,Correspondence,Assocatiaon](https://github.com/kim-taehee/Advanced-statistic-code-in-R/blob/master/Tree%2CCorrespondence.%2CAssociation.R)
 - [Survival(생존분석),SEM(구조방정식)](https://github.com/kim-taehee/Advanced-statistic-code-in-R/blob/master/Survive%2CSEM.R)
 - [Time-seriz(시계열)](https://github.com/kim-taehee/Advanced-statistic-code-in-R/blob/master/seriz.R)
+- [monte bayesian](https://github.com/kim-taehee/Advanced-statistic-code-in-R/blob/master/monte_basyan.R)
