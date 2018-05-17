@@ -27,6 +27,34 @@ for(i in 1:12){
 }
 prob
 
+# 연습문제1 : 어느 도시에 거주하는 주민들 중 약 2%가 색맹이라고 하자. 
+#  만약 색맹을 검사가 이때 옳게 판정할 확률(true positive), 아닌데 옳게 판정할 확률 0.001(false positive,1종오류)
+#  이때의 수식은?
+postProbEye<-function(e,prior){
+  if(e==0.02){
+    post<-0.98*prior/(0.98*prior+0.001*(1-prior)) # 사후확률1 
+    # 무작위 주민이 색맹인 경우 0.02*0.98 , false positive - 0.98*0.001
+  }
+  else
+    post<-0.02*prior/(0.02*prior+0.999*(1-prior)) #사후확률2 
+  # 무작이 주민이 색맹인데 검사x(2종오류), 아닌데 검사x(false negative) 
+} # 사전 사후 확률을 계속 곱해주는 함수 
+
+prior<-c(1:2)
+post<-c(1:1)
+data<-c(0.02,0.02)
+prob<-matrix(0,2,2)
+prior[1]<-0.02
+for(i in 1:2){
+  post[i]<-post.prob(data[i],prior[i])
+  prob[i,]<-c(prior[i],post[i])
+  prior[i+1]<-post[i]
+} #posterior 의 길이 만큼 반복해 줌 
+prob # 1,2번째 다 양성일 경우
+# 1번 환자는 사전확률 0.02 사후확률 0.03으로 사후확률이 1.5배 크다(odds ratio)
+# 2번 환자는 사전확률 0.03 사후확률 0.0005로 앞사람에 비해 오진가능성이 커서 사후확률이 적다
+
+
 library("ggplot2")
 par(mflow=c(1,2))
 x<-c(0:12)
